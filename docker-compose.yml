@@ -1,0 +1,25 @@
+name: "dev-davidsilva-apps-playlists"
+
+networks:
+  app-network:
+    name: dev-davidsilva-apps-playlists-network
+
+volumes:
+  database-data:
+    name: dev-davidsilva-apps-playlists-db-data
+
+services:
+  database:
+    image: "postgres:17.6-trixie"
+    container_name: dev-davidsilva-apps-playlists-db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=playlists
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - database-data:/var/lib/postgresql/data
+    networks:
+      - app-network
